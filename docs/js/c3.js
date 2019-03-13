@@ -4911,14 +4911,12 @@
   Chart.prototype.selected = function (targetId) {
     var $$ = this.internal,
         d3 = $$.d3;
-    return d3.merge($$.main.selectAll('.' + CLASS.shapes + $$.getTargetSelectorSuffix(targetId)).selectAll('.' + CLASS.shape).filter(function () {
+    return $$.main.selectAll('.' + CLASS.shapes + $$.getTargetSelectorSuffix(targetId)).selectAll('.' + CLASS.shape).filter(function () {
       return d3.select(this).classed(CLASS.SELECTED);
-    }).map(function (d) {
-      return d.map(function (d) {
-        var data = d.__data__;
-        return data.data ? data.data : data;
-      });
-    }));
+    }).nodes().map(function (d) {
+      var data = d.__data__;
+      return data.data ? data.data : data;
+    });
   };
 
   Chart.prototype.select = function (ids, indices, resetOther) {
